@@ -9,7 +9,7 @@ from domainbed.lib import wide_resnet
 import copy
 
 import timm
-
+from torch.nn.utils.parametrize import orthogonal 
 
 def remove_batch_norm_from_resnet(model):
     fuse = torch.nn.utils.fusion.fuse_conv_bn_eval
@@ -254,9 +254,9 @@ def Classifier(in_features, out_features, is_nonlinear=False):
             torch.nn.ReLU(),
             torch.nn.Linear(in_features // 2, in_features // 4),
             torch.nn.ReLU(),
-            torch.nn.Linear(in_features // 4, out_features))
+            orthogonal(torch.nn.Linear(in_features // 4, out_features))
     else:
-        return torch.nn.Linear(in_features, out_features)
+        return orthogonal(torch.nn.Linear(in_features, out_features))
 
 
 class WholeFish(nn.Module):
