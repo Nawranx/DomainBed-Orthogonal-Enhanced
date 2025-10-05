@@ -27,7 +27,7 @@ def Classifier(in_features, out_features, is_nonlinear=False):
         )
     else:
         return orthogonal(torch.nn.Linear(in_features, out_features))
-
+```
 
 # Welcome to DomainBed
 
