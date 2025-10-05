@@ -5,12 +5,12 @@ introducing an **orthogonal parametrization** in the classifier layer to improve
 
 ---
 
-## 🧩 Overview
+## Overview
 
 The orthogonal extension enforces **orthonormality** among classifier weight vectors,  
 which helps reduce feature redundancy and overfitting across domains in ERM and ERM++ algorithms.
 
-### ✅ Key Change
+### Key Change
 File modified: `domainbed/networks.py`
 
 ```python
@@ -103,7 +103,6 @@ Send us a PR to add your dataset! Any custom image dataset with folder structure
 * `IIDAccuracySelectionMethod`: A random subset from the data of the training domains.
 * `LeaveOneOutSelectionMethod`: A random subset from the data of a held-out (not training, not testing) domain.
 * `OracleSelectionMethod`: A random subset from the data of the test domain.
-
 ## Quick start
 
 Download the datasets:
