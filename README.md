@@ -1,3 +1,34 @@
+# DomainBed: Orthogonal Enhanced Version
+
+This is an **extended version of Facebook Research's [DomainBed](https://github.com/facebookresearch/DomainBed)**,  
+introducing an **orthogonal parametrization** in the classifier layer to improve domain generalization and model robustness.
+
+---
+
+## 🧩 Overview
+
+The orthogonal extension enforces **orthonormality** among classifier weight vectors,  
+which helps reduce feature redundancy and overfitting across domains in ERM and ERM++ algorithms.
+
+### ✅ Key Change
+File modified: `domainbed/networks.py`
+
+```python
+from torch.nn.utils.parametrize import orthogonal
+
+def Classifier(in_features, out_features, is_nonlinear=False):
+    if is_nonlinear:
+        return torch.nn.Sequential(
+            torch.nn.Linear(in_features, in_features // 2),
+            torch.nn.ReLU(),
+            torch.nn.Linear(in_features // 2, in_features // 4),
+            torch.nn.ReLU(),
+            orthogonal(torch.nn.Linear(in_features // 4, out_features))  # Injected orthogonality
+        )
+    else:
+        return orthogonal(torch.nn.Linear(in_features, out_features))
+
+
 # Welcome to DomainBed
 
 DomainBed is a PyTorch suite containing benchmark datasets and algorithms for domain generalization, as introduced in [In Search of Lost Domain Generalization](https://arxiv.org/abs/2007.01434).
