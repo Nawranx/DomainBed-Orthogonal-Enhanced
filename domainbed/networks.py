@@ -255,6 +255,7 @@ def Classifier(in_features, out_features, is_nonlinear=False):
             torch.nn.Linear(in_features // 2, in_features // 4),
             torch.nn.ReLU(),
             orthogonal(torch.nn.Linear(in_features // 4, out_features))
+        )
     else:
         return orthogonal(torch.nn.Linear(in_features, out_features))
 
